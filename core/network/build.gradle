@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.core.network'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation Deps.core
+    implementation Deps.lifeCycle
+    implementation Deps.compose_activity
+    implementation ComposeUI.compose_ui
+    implementation ComposeUI.tooling_preview
+    implementation ComposeUI.material
+    testImplementation TestImplementation.junit
+    androidTestImplementation TestImplementation.ext_junit
+    androidTestImplementation TestImplementation.espresso_core
+    androidTestImplementation TestImplementation.ui_test_junit
+    debugImplementation DebugImplementation.ui_tooling
+    debugImplementation DebugImplementation.ui_test_manifest
+
+    implementation DaggerHilt.hilt_android
+    kapt DaggerHilt.hilt_compiler
+    kapt DaggerHilt.hilt_ktx_compiler
+    implementation DaggerHilt.hilt_navigation
+
+    implementation Retrofit.retrofit
+    implementation Retrofit.retrofit_converter
+    implementation Retrofit.logging_retrofit
+}

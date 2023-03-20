@@ -1,0 +1,88 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.example.multi_module_movielistdemo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.multi_module_movielistdemo"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.0'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    kapt {
+        correctErrorTypes = true
+    }
+}
+
+dependencies {
+
+
+    implementation project(":features:movie:ui")
+    implementation project(":features:movie:domain")
+    implementation project(":features:movie:data")
+
+    implementation project(":core:common")
+    implementation project(":core:feature_api")
+
+    implementation Deps.core
+    implementation Deps.lifeCycle
+    implementation Deps.compose_activity
+    implementation ComposeUI.compose_ui
+    implementation ComposeUI.tooling_preview
+    implementation ComposeUI.navigation
+    implementation ComposeUI.material
+    testImplementation TestImplementation.junit
+    androidTestImplementation TestImplementation.ext_junit
+    androidTestImplementation TestImplementation.espresso_core
+    androidTestImplementation TestImplementation.ui_test_junit
+    debugImplementation DebugImplementation.ui_tooling
+    debugImplementation DebugImplementation.ui_test_manifest
+
+    implementation DaggerHilt.hilt_android
+    kapt DaggerHilt.hilt_compiler
+    kapt DaggerHilt.hilt_ktx_compiler
+    implementation DaggerHilt.hilt_navigation
+
+    implementation Retrofit.retrofit
+    implementation Retrofit.retrofit_converter
+    implementation Retrofit.logging_retrofit
+
+
+}
